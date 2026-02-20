@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setSellerData } from "../../../store/sellerSlice"; // We'll create this slice
+import { setSellerData } from "../../../store/sellerSlice";
 import Image from "next/image";
 
 export default function SellerRegister() {
@@ -16,25 +16,19 @@ export default function SellerRegister() {
     password: "",
     confirmPassword: "",
     whatsapp: "",
-    profilePic: null,
     businessName: "",
-    categories: [], // multi-select
+    category: "",
     about: "",
+    profilePic: null,
   });
 
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    const { name, value, files, options } = e.target;
+    const { name, value, files } = e.target;
 
     if (files) {
       setFormData({ ...formData, [name]: files[0] });
-    } else if (options) {
-      // multi-select for categories
-      const selected = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
-      setFormData({ ...formData, [name]: selected });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -47,21 +41,21 @@ export default function SellerRegister() {
       setError("Passwords do not match");
       return;
     }
-    if (!formData.categories.length) {
-      setError("Please select at least one category");
+
+    if (!formData.category) {
+      setError("Please select a category");
       return;
     }
 
     setError("");
 
-    // Save to Redux
     dispatch(
       setSellerData({
         name: formData.name,
         email: formData.email,
         whatsapp: formData.whatsapp,
         businessName: formData.businessName,
-        categories: formData.categories,
+        category: formData.category,
         about: formData.about,
         profilePic: formData.profilePic,
       })
@@ -73,28 +67,29 @@ export default function SellerRegister() {
   };
 
   return (
-    <div
-      className="container-fluid d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
+    <div className="container-fluid mt-5 d-flex align-items-center justify-content-center"
+     style={{ minHeight: "100vh" }}>
+
       <div
         className="row w-100 shadow-lg"
         style={{
           maxWidth: "1000px",
           borderRadius: "10px",
           overflow: "hidden",
-          minHeight: "400px",
+          minHeight: "500px",
         }}
       >
         {/* LEFT SIDE - FORM */}
         <div className="col-md-6 bg-light d-flex flex-column justify-content-center p-4">
           <div style={{ width: "100%", maxWidth: "400px" }}>
-            <h2 className="text-primary mb-2">Create Seller Account</h2>
+            <h2 className="text-success mb-2">Create Seller Account</h2>
             <p className="mb-4 text-muted">
-              Fill your details to start selling your items.
+              Register your business and start selling today.
             </p>
 
-            {error && <div className="alert alert-danger py-2">{error}</div>}
+            {error && (
+              <div className="alert alert-danger py-2">{error}</div>
+            )}
 
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -111,10 +106,22 @@ export default function SellerRegister() {
 
               <div className="mb-3">
                 <input
+                  type="text"
+                  name="businessName"
+                  className="form-control"
+                  placeholder="Business / Shop Name"
+                  value={formData.businessName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <input
                   type="email"
                   name="email"
                   className="form-control"
-                  placeholder="Email"
+                  placeholder="Business Email"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -150,55 +157,42 @@ export default function SellerRegister() {
                   type="text"
                   name="whatsapp"
                   className="form-control"
-                  placeholder="WhatsApp Number"
+                  placeholder="Business WhatsApp Number"
                   value={formData.whatsapp}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="mb-3">
-                <input
-                  type="text"
-                  name="businessName"
-                  className="form-control"
-                  placeholder="Business / Shop Name"
-                  value={formData.businessName}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Categories of items</label>
                 <select
-                  multiple
-                  name="categories"
+                  name="category"
                   className="form-select"
-                  value={formData.categories}
+                  value={formData.category}
                   onChange={handleChange}
                   required
                 >
+                  <option value="">Select Product Category</option>
                   <option value="electronics">Electronics</option>
                   <option value="fashion">Fashion</option>
                   <option value="books">Books</option>
                   <option value="furniture">Furniture</option>
                   <option value="toys">Toys</option>
                 </select>
-                <small className="text-muted">Hold Ctrl (or Cmd) to select multiple</small>
               </div>
 
               <div className="mb-3">
                 <textarea
                   name="about"
                   className="form-control"
-                  placeholder="About your business"
-                  rows={3}
+                  placeholder="About Your Business"
+                  rows="3"
                   value={formData.about}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Profile Picture</label>
+                <label className="form-label">Business Logo / Profile Picture</label>
                 <input
                   type="file"
                   name="profilePic"
@@ -208,16 +202,17 @@ export default function SellerRegister() {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary w-100">
-                Submit
+              <button type="submit" className="btn btn-success w-100">
+                Register as Seller
               </button>
             </form>
           </div>
         </div>
 
         {/* RIGHT SIDE - PROFILE PREVIEW */}
-        <div className="col-md-6 bg-white d-flex flex-column align-items-center justify-content-center p-4 border-start">
-          <h4 className="text-primary mb-3">Profile Summary</h4>
+        <div className="col-md-6 bg-white d-flex flex-column align-items-center p-4 border-start">
+
+          <h4 className="text-success mb-3">Business Summary</h4>
 
           {formData.profilePic && (
             <Image
@@ -230,10 +225,10 @@ export default function SellerRegister() {
           )}
 
           <p><strong>Name:</strong> {formData.name || "-"}</p>
+          <p><strong>Business:</strong> {formData.businessName || "-"}</p>
           <p><strong>Email:</strong> {formData.email || "-"}</p>
           <p><strong>WhatsApp:</strong> {formData.whatsapp || "-"}</p>
-          <p><strong>Business:</strong> {formData.businessName || "-"}</p>
-          <p><strong>Categories:</strong> {formData.categories.join(", ") || "-"}</p>
+          <p><strong>Category:</strong> {formData.category || "-"}</p>
           <p><strong>About:</strong> {formData.about || "-"}</p>
         </div>
       </div>

@@ -22,7 +22,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #256628;
+  background-color: var(--primary-green);
 }
 
 .btn-accent {
