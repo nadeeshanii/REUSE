@@ -16,9 +16,16 @@ body {
   background-color: var(--primary-green) !important;
 }
 
-.btn-primary {
-  background-color: var(--primary-green);
+.cta-btn {
+  background-color: #F57C00;
+  color: white;
   border: none;
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #2f5f2e;
+  transform: translateY(-2px);
 }
 
 .btn-primary:hover {

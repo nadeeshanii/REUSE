@@ -9,7 +9,6 @@ export default function HomePage() {
   const router = useRouter();
   const user = useSelector((state) => state.user);
 
-  // Sample items
   const items = [
     {
       id: 1,
@@ -51,95 +50,114 @@ export default function HomePage() {
 
   return (
     <div>
-     {/* Hero Section */}
-<section
-  className="d-flex align-items-center justify-content-center text-center text-white position-relative"
-  style={{
-    minHeight: "80vh",
-    backgroundImage: "url('/hero.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-  }}
->
-  {/* Dark Background Overlay */}
-  <div
-    className="position-absolute top-0 start-0 w-100 h-100"
-    style={{
-      backgroundColor: "rgba(0,0,0,0.3)",
-    }}
-  ></div>
+      {/* Hero Section */}
+      <section
+        className="d-flex align-items-center justify-content-center text-center text-white position-relative"
+        style={{
+          minHeight: "80vh",
+          backgroundImage: "url('/hero.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* Dark Overlay */}
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100"
+          style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+        ></div>
 
-  {/* Glass Content Box */}
-  <div
-    className="position-relative d-flex flex-column align-items-center justify-content-center"
-    style={{
-      padding: "2.5rem 3rem",
-      borderRadius: "15px",
-      backdropFilter: "blur(12px)", // Glass effect
-      backgroundColor: "rgba(255, 255, 255, 0.15)", // semi-transparent
-      border: "1px solid rgba(255, 255, 255, 0.3)",
-      zIndex: 2,
-      maxWidth: "90%",
-    }}
-  >
-    <h1
-      className="fw-bold mb-3"
-      style={{
-        color: "#2E7D32",
-        fontSize: "5rem",
-        letterSpacing: "4px",
-    
-      }}
-    >
-      ReUse SL
-    </h1>
+        {/* Glass Box */}
+        <div
+          className="position-relative d-flex flex-column align-items-center"
+          style={{
+            padding: "3rem 12rem",
+            borderRadius: "5px",
+            backdropFilter: "blur(1px)",
+            backgroundColor: "rgba(255, 255, 255, 0.15)",
+            border: "1px solid rgba(255, 255, 255, 0.3)",
+            zIndex: 2,
+          }}
+        >
+          <h1
+            className="fw-bold mb-3"
+            style={{
+              color: "#ffffff",
+              fontSize: "5.5rem",
+              letterSpacing: "4px",
+              textShadow: "0 4px 20px rgba(0,0,0,0.7)",
+            }}
+          >
+            ReUse <span style={{ color: "#2E7D32" }}>SL</span>
+          </h1>
 
-    <h2
-      className="display-5 fw-bold"
-      style={{
-        textShadow: "1px 1px 6px rgba(0,0,0,0.5)",
-      }}
-    >
-      Give your items a second story
-    </h2>
+          <h2
+            className="fw-bold"
+            style={{
+              textShadow: "0 2px 10px rgba(0,0,0,0.6)",
+            }}
+          >
+            Give your items a second story
+          </h2>
 
-    <p className="lead mt-3 text-white">
-      Find, share, and breathe life into pre-loved items.
-    </p>
-  </div>
-</section>
+          <p className="lead mt-3 text-white">
+            Find, share, and breathe life into pre-loved items.
+          </p>
 
-{/* Impact Section */}
-<section className="py-3" style={{ backgroundColor: "#f8f9fa" }}>
-  <div className="container">
-    <div className="row text-center">
+          {/* CTA Buttons */}
+          <div className="mt-4 d-flex gap-3 flex-wrap justify-content-center">
+            <button
+               className="btn cta-btn px-4 py-2 fw-semibold"
+              onClick={() => router.push("/browse-items")}
+            >
+              Browse Items
+            </button>
 
-      <div className="col-md-4 mb-3 mb-md-0">
-        <div className="p-3 shadow-sm rounded bg-white h-100">
-          <h3 className="fw-bold text-success mb-1">1,200kg</h3>
-          <p className="text-muted mb-0">Waste Diverted This Week</p>
+            {user?.role === "seller" && (
+              <button
+                className="btn btn-outline-light px-4 py-2 fw-semibold"
+                onClick={() => router.push("/post-item")}
+              >
+                Post an Item
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="col-md-4 mb-3 mb-md-0">
-        <div className="p-3 shadow-sm rounded bg-white h-100">
-          <h3 className="fw-bold text-success mb-1">450</h3>
-          <p className="text-muted mb-0">Items Found New Homes Today</p>
+      {/* Impact Section */}
+      <section className="py-4" style={{ backgroundColor: "#f8f9fa" }}>
+        <div className="container">
+          <div className="row text-center g-4">
+            <div className="col-md-4">
+              <div className="p-4 shadow-sm rounded bg-white h-100">
+                <h3 className="fw-bold text-success">1,200kg</h3>
+                <p className="text-muted mb-0">
+                  Waste Diverted This Week
+                </p>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="p-4 shadow-sm rounded bg-white h-100">
+                <h3 className="fw-bold text-success">450</h3>
+                <p className="text-muted mb-0">
+                  Items Found New Homes Today
+                </p>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="p-4 shadow-sm rounded bg-white h-100">
+                <h3 className="fw-bold text-success">3,800+</h3>
+                <p className="text-muted mb-0">
+                  Active Community Members
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="col-md-4">
-        <div className="p-3 shadow-sm rounded bg-white h-100">
-          <h3 className="fw-bold text-success mb-1">3,800+</h3>
-          <p className="text-muted mb-0">Active Community Members</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Categories */}
       <section className="py-5 text-center">
@@ -156,7 +174,7 @@ export default function HomePage() {
             >
               <div
                 className="rounded-circle bg-light d-flex align-items-center justify-content-center shadow-sm"
-                style={{ width: "90px", height: "90px" }}
+                style={{ width: "100px", height: "100px" }}
               >
                 {cat.icon}
               </div>
@@ -176,14 +194,13 @@ export default function HomePage() {
             {items.map((item) => (
               <div key={item.id} className="col-md-3 mb-4">
                 <div className="card shadow-sm h-100">
-                  
-                  {/* Fixed Image Size */}
-                  <div style={{ height: "200px", overflow: "hidden" }}>
+
+                  <div style={{ height: "220px", overflow: "hidden" }}>
                     <Image
                       src={item.image}
                       alt={item.name}
                       width={400}
-                      height={200}
+                      height={220}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -197,10 +214,9 @@ export default function HomePage() {
                     <span className="badge bg-success mb-2">
                       {item.condition}
                     </span>
-                    <p className="card-text text-muted">{item.price}</p>
-                    <button className="btn btn-outline-danger btn-sm">
-                      <i className="bi bi-heart"></i>
-                    </button>
+                    <p className="card-text text-muted">
+                      {item.price}
+                    </p>
                   </div>
 
                 </div>
