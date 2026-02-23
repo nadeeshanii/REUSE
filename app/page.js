@@ -108,7 +108,7 @@ export default function HomePage() {
           <div className="mt-4 d-flex gap-3 flex-wrap justify-content-center">
             <button
                className="btn cta-btn px-4 py-2 fw-semibold"
-              onClick={() => router.push("/browse-items")}
+              onClick={() => router.push("/products")}
             >
               Browse Items
             </button>
@@ -116,7 +116,7 @@ export default function HomePage() {
             {user?.role === "seller" && (
               <button
                 className="btn btn-outline-light px-4 py-2 fw-semibold"
-                onClick={() => router.push("/post-item")}
+                onClick={() => router.push("/products")}
               >
                 Post an Item
               </button>
