@@ -8,18 +8,17 @@ const initialState = {
   categories: [],
   about: "",
   profilePic: null,
+  memberSince: new Date().toISOString(),
 };
 
-export const sellerSlice = createSlice({
+const sellerSlice = createSlice({
   name: "seller",
   initialState,
   reducers: {
     setSellerData: (state, action) => {
-      Object.assign(state, action.payload);
+      return { ...state, ...action.payload };
     },
-    clearSellerData: (state) => {
-      Object.assign(state, initialState);
-    },
+    clearSellerData: () => initialState,
   },
 });
 

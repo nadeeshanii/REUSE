@@ -1,30 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [
+  products: [
     {
-      title: "Used Laptop",
-      description: "Good condition, 8GB RAM",
-      category: "electronics",
-      whatsapp: "94771234567",
-      image: "/1.png",
+      id: 1,
+      name: "Vintage Chair",
+      price: 2500,
+      description: "Comfortable wooden vintage chair in good condition.",
+      image: "/items/chair1.jpg",
       location: "Colombo",
+      category: "Furniture",
+      condition: "Used",
+      postedDate: "2026-02-20",
+      sellerName: "Green Furniture Store",
     },
     {
-      title: "Fashion Jacket",
-      description: "Almost new, size M",
-      category: "fashion",
-      whatsapp: "94779876543",
-      image: "/1.png",
-      location: "Negombo",
+      id: 2,
+      name: "iPhone 12",
+      price: 120000,
+      description: "iPhone 12 128GB. Excellent condition.",
+      image: "/items/phone1.jpg",
+      location: "Kandy",
+      category: "Electronics",
+      condition: "Like New",
+      postedDate: "2026-02-18",
+      sellerName: "Tech World",
     },
   ],
 };
 
-export const productSlice = createSlice({
-  name: "products",
+const productSlice = createSlice({
+  name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    addProduct: (state, action) => {
+      state.products.push(action.payload);
+    },
+    removeProduct: (state, action) => {
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload
+      );
+    },
+  },
 });
 
+export const { addProduct, removeProduct } = productSlice.actions;
 export default productSlice.reducer;
